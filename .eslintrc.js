@@ -3,6 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
     jasmine: true,
+    jest: true,
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
@@ -30,5 +31,6 @@ module.exports = {
     'no-use-before-define': [0],
     '@typescript-eslint/no-use-before-define': [1],
     'comma-dangle': ['error', 'always-multiline'],
+    'space-before-function-paren': 'off',
   },
 }
