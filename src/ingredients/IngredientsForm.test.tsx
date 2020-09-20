@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, RenderResult } from '@testing-library/react'
+import { fireEvent, render, RenderResult } from '@testing-library/react'
 import { IngredientForm } from './IngredientForm'
 import { Mock } from '../setupTests'
 import { Ingredient } from './Ingredients'
@@ -45,6 +45,10 @@ describe('IngredientsForm', () => {
     it('should dispatch the fetchIngredients spy', () => {
       expect(fetchIngredientsSpy).toHaveBeenCalled()
     })
+
+    it('should not display a graceful error message', () => {
+      expect(ingredientsForm.queryByText('Aw snap! It looks like we don\'t have anything delicious', { exact: false })).toBeNull()
+    })
   })
 
   describe('when there is no text in the input', () => {
@@ -87,11 +91,24 @@ describe('IngredientsForm', () => {
     })
   })
 
-  // describe('when entering an ingredient that does not exist', () => {
-  //
-  // })
-  //
-  // describe('when entering a lower case ingredient', () => {
-  //
-  // })
+  describe('when entering an ingredient that does not exist', () => {
+    beforeEach(() => {
+      ingredientsForm = render(
+        <IngredientForm
+          ingredientIsValid={false}
+          validateIngredient={validateIngredientSpy}
+          fetchIngredients={fetchIngredientsSpy}
+          fetchProducts={fetchProductsSpy}
+          selectedIngredient={undefined}
+        />,
+      )
+
+      const input = ingredientsForm.getByLabelText('Ingredient')
+      fireEvent.change(input, { target: { value: 'ingredient' } })
+    })
+
+    it('should display a graceful error message', () => {
+      expect(ingredientsForm.getByText('Aw snap! It looks like we don\'t have anything delicious', { exact: false })).toBeInTheDocument()
+    })
+  })
 })

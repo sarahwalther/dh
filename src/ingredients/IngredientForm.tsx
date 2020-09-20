@@ -8,7 +8,7 @@ import { DHDispatch } from '../store'
 
 interface IngredientFormState {
   submitDisabled: boolean,
-  inputValue: string
+  inputValue: string,
 }
 
 interface IngredientFormStateProps {
@@ -18,7 +18,9 @@ interface IngredientFormStateProps {
 
 interface IngredientFormDispatchProps {
   validateIngredient(ingredient: string): void
+
   fetchIngredients(): void
+
   fetchProducts(ingredient: Ingredient): void
 }
 
@@ -34,19 +36,35 @@ export class IngredientForm extends Component<IngredientFormStateProps & Ingredi
 
   render(): ReactElement {
     return (
-      <form onSubmit={this.submit}>
-        <label>
-          Ingredient
-          <input
-            type="text"
-            name="ingredient"
-            value={this.state.inputValue}
-            onChange={this.onChange}
-            onBlur={this.validate}
-          />
-        </label>
-        <input type="submit" value="Find" disabled={this.state.submitDisabled}/>
-      </form>
+      <div className="container mt-4">
+        <div className=".col-sm-2 .offset-md-2">
+          <h3>Find delicious options containing your favorite ingredients!</h3>
+          <form onSubmit={this.submit} className="">
+            <div className="form-group">
+              <label htmlFor="ingredient">
+                Ingredient
+              </label>
+              <input
+                type="text"
+                name="ingredient"
+                id="ingredient"
+                className="form-control invalid"
+                value={this.state.inputValue}
+                onChange={this.onChange}
+                onBlur={this.validate}
+                required
+              />
+            </div>
+            <input
+              type="submit"
+              value="Find"
+              className="btn btn-primary form-group"
+              disabled={this.state.submitDisabled}
+            />
+          </form>
+          <p>{this.props.ingredientIsValid ? '' : `Aw snap! It looks like we don't have anything delicious containing ${this.state.inputValue} yet. Maybe try something else?`}</p>
+        </div>
+      </div>
     )
   }
 

@@ -10,7 +10,7 @@ function App(): ReactElement {
   console.log(store)
   return (
     <Provider store={store}>
-      <div className="App">
+      <div className="App container-fluid">
         <Header/>
         <IngredientForm/>
       </div>

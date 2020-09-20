@@ -17,6 +17,7 @@
     "@types/redux-logger": "^3.0.8",
     "@types/redux-thunk": "^2.1.0",
     "axios": "^0.20.0",
+    "bootstrap": "^4.5.2",
     "cypress": "^5.2.0",
     "node-sass": "^4.14.1",
     "pluralize": "^8.0.0",
