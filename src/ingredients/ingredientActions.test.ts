@@ -79,28 +79,82 @@ describe('IngredientActions', () => {
     })
 
     describe('when the ingredient does exist', () => {
-      it('should dispatch the UPDATE_INGREDIENT_IS_VALID action with true', () => {
-        const expectedAction: UpdateIngredientIsValidAction = {
-          type: UPDATE_INGREDIENT_IS_VALID,
-          payload: true,
-        }
+      describe('when the input is lower case', () => {
+        it('should dispatch the UPDATE_INGREDIENT_IS_VALID action with true', () => {
+          const expectedAction: UpdateIngredientIsValidAction = {
+            type: UPDATE_INGREDIENT_IS_VALID,
+            payload: true,
+          }
 
-        store.dispatch(validateAndSelectIngredient('Avocado'))
-        const actionsCalled = store.getActions()
+          store.dispatch(validateAndSelectIngredient('avocado'))
+          const actionsCalled = store.getActions()
 
-        expect(actionsCalled[0]).toEqual(expectedAction)
+          expect(actionsCalled[0]).toEqual(expectedAction)
+        })
+
+        it('should dispatch the UPDATE_SELECTED_INGREDIENT action', () => {
+          const expectedAction: UpdateSelectedIngredientAction = {
+            type: UPDATE_SELECTED_INGREDIENT,
+            ingredient: avodado,
+          }
+
+          store.dispatch(validateAndSelectIngredient('avocado'))
+          const actionsCalled = store.getActions()
+
+          expect(actionsCalled[1]).toEqual(expectedAction)
+        })
       })
 
-      it('should dispatch the UPDATE_SELECTED_INGREDIENT action', () => {
-        const expectedAction: UpdateSelectedIngredientAction = {
-          type: UPDATE_SELECTED_INGREDIENT,
-          ingredient: avodado,
-        }
+      describe('when the input is pluralized', () => {
+        it('should dispatch the UPDATE_INGREDIENT_IS_VALID action with true', () => {
+          const expectedAction: UpdateIngredientIsValidAction = {
+            type: UPDATE_INGREDIENT_IS_VALID,
+            payload: true,
+          }
 
-        store.dispatch(validateAndSelectIngredient('Avocado'))
-        const actionsCalled = store.getActions()
+          store.dispatch(validateAndSelectIngredient('Avocados'))
+          const actionsCalled = store.getActions()
 
-        expect(actionsCalled[1]).toEqual(expectedAction)
+          expect(actionsCalled[0]).toEqual(expectedAction)
+        })
+
+        it('should dispatch the UPDATE_SELECTED_INGREDIENT action', () => {
+          const expectedAction: UpdateSelectedIngredientAction = {
+            type: UPDATE_SELECTED_INGREDIENT,
+            ingredient: avodado,
+          }
+
+          store.dispatch(validateAndSelectIngredient('Avocados'))
+          const actionsCalled = store.getActions()
+
+          expect(actionsCalled[1]).toEqual(expectedAction)
+        })
+      })
+
+      describe('when the input is an exact match', () => {
+        it('should dispatch the UPDATE_INGREDIENT_IS_VALID action with true', () => {
+          const expectedAction: UpdateIngredientIsValidAction = {
+            type: UPDATE_INGREDIENT_IS_VALID,
+            payload: true,
+          }
+
+          store.dispatch(validateAndSelectIngredient('Avocado'))
+          const actionsCalled = store.getActions()
+
+          expect(actionsCalled[0]).toEqual(expectedAction)
+        })
+
+        it('should dispatch the UPDATE_SELECTED_INGREDIENT action', () => {
+          const expectedAction: UpdateSelectedIngredientAction = {
+            type: UPDATE_SELECTED_INGREDIENT,
+            ingredient: avodado,
+          }
+
+          store.dispatch(validateAndSelectIngredient('Avocado'))
+          const actionsCalled = store.getActions()
+
+          expect(actionsCalled[1]).toEqual(expectedAction)
+        })
       })
     })
   })

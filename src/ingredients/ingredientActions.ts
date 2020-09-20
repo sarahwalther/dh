@@ -3,6 +3,7 @@ import { AxiosResponse, AxiosInstance } from 'axios'
 import { Ingredient } from './Ingredients'
 import { DHGetState, DHThunk } from '../store'
 import { getAxiosInstance } from './httpClient'
+import pluralize from 'pluralize'
 
 export const INGREDIENTS_CALL_FAILED = 'INGREDIENTS_CALL_FAILED'
 export const UPDATE_INGREDIENT_IS_VALID = 'UPDATE_INGREDIENT_IS_VALID'
@@ -64,7 +65,10 @@ export const validateAndSelectIngredient: ActionCreator<DHThunk> = (
   getState: DHGetState,
 ): void => {
   const ingredientFound = getState().ingredientReducer.ingredients.find(
-    availableIngredient => availableIngredient.name === ingredient)
+    availableIngredient => {
+      const singularLowerCaseIngredient = pluralize.singular(ingredient.toLowerCase())
+      return availableIngredient.name.toLowerCase() === singularLowerCaseIngredient
+    })
 
   dispatch(updateIngredientIsValidAction(ingredientFound !== undefined))
   if (ingredientFound !== undefined) {
