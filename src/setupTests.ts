@@ -17,6 +17,7 @@ export const mockStoreCreator: MockStoreCreator<RootState, DispatchExts> = confi
 
 const fakeAxios: AxiosInstance = axios.create({ baseURL: 'test.com' })
 export type DispatchExts = ThunkDispatch<RootState, undefined, AnyAction>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const setupMockStore = (passedInStore: Partial<RootState>): any => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
