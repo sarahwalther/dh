@@ -1,22 +1,31 @@
 /// <reference types="cypress" />
 
 context('Journey Test', () => {
-  beforeEach(() => {
+  before(() => {
+    cy.server()
+    cy.route('GET', 'https://raw.githubusercontent.com/daily-harvest/opportunities/master/web-1/data/ingredients.json').as('getIngredients')
+
     cy.visit('')
+    cy.wait('@getIngredients')
   })
 
   it('displays the title of the project', () => {
-    expect(cy.contains('Welcome to the Food finder'))
+    expect(cy.contains('Welcome to the Food Finder'))
   })
 
-  describe('entering an ingredient', () => {
+  describe('entering a valid ingredient', () => {
     before(() => {
-      cy.contains('div', 'Ingredient').find('input').first().type('Organic Kale')
+      cy.contains('div', 'Ingredient').find('input').first().type('Avocado').blur()
 
-      cy.get('form').contains('form', 'Find').submit()
+      cy.server()
+      cy.route('GET', 'https://raw.githubusercontent.com/daily-harvest/opportunities/master/web-1/data/products.json').as('getProducts')
+
+      cy.get('form').submit()
+      cy.wait('@getProducts')
     })
+
     it('displays a list of products', () => {
-      // expect(cy)
+      cy.contains('Cacao + Avocado').should('exist')
     })
   })
 })

@@ -28,11 +28,14 @@ function fail_for_unstaged_files() {
 }
 
 function lint() {
+  echo 'linting'
 
   yarn run lint
 }
 
 function run_unit_tests() {
+  echo 'running unit tests'
+
   yarn run test --watchAll=false
 }
 
@@ -57,6 +60,8 @@ function e2e_tests() {
   local -r WHITE_COLOR_CODE='\033[0;37m'
   local -r GREEN_COLOR_CODE='\033[0;32m'
 
+  echo 'running end to end tests'
+
   yarn run cypress-run || {
     echo -e "${RED_COLOR_CODE}\\nEnd to end tests failed... \\nExiting!${WHITE_COLOR_CODE}" && shut_down_app >&2
     exit 1
@@ -67,8 +72,12 @@ function e2e_tests() {
 }
 
 function shut_down_app() {
+  echo 'shutting down app if exists'
+
+  set +o errexit
   npx pm2 stop daily-harvest-interview
   npx pm2 delete daily-harvest-interview
+  set -o errexit
 }
 
 function display_success_message() {

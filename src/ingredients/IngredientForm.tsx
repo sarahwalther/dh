@@ -39,7 +39,7 @@ export class IngredientForm extends Component<IngredientFormStateProps & Ingredi
       <div className="container mt-4">
         <div className=".col-sm-2 .offset-md-2">
           <h3>Find delicious options containing your favorite ingredients!</h3>
-          <form onSubmit={this.submit} className="">
+          <form onSubmit={this.handleSubmit}>
             <div className="form-group">
               <label htmlFor="ingredient">
                 Ingredient
@@ -69,6 +69,7 @@ export class IngredientForm extends Component<IngredientFormStateProps & Ingredi
   }
 
   onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    event.preventDefault()
     this.setState({
       submitDisabled: event.target.value === '',
       inputValue: event.target.value,
@@ -79,7 +80,7 @@ export class IngredientForm extends Component<IngredientFormStateProps & Ingredi
     this.props.validateIngredient(this.state.inputValue)
   }
 
-  submit = (event: FormEvent<HTMLFormElement>): void => {
+  handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     if (this.props.selectedIngredient !== undefined) {
       this.props.fetchProducts(this.props.selectedIngredient)

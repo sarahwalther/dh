@@ -7,8 +7,6 @@ import store from './store'
 import ProductList from './products/ProductList';
 
 function App(): ReactElement {
-  console.log('store')
-  console.log(store)
   return (
     <Provider store={store}>
       <div className="App container-fluid">
