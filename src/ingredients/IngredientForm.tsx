@@ -12,8 +12,10 @@ interface IngredientFormState {
 }
 
 interface IngredientFormStateProps {
-  ingredientIsValid: boolean,
+  ingredientIsValid: boolean
   selectedIngredient: Ingredient | undefined
+  ingredientsCallFailed: boolean
+  productsCallFailed: boolean
 }
 
 interface IngredientFormDispatchProps {
@@ -62,7 +64,11 @@ export class IngredientForm extends Component<IngredientFormStateProps & Ingredi
               disabled={this.state.submitDisabled}
             />
           </form>
-          <p>{this.props.ingredientIsValid ? '' : `Aw snap! It looks like we don't have anything delicious containing ${this.state.inputValue} yet. Maybe try something else?`}</p>
+          {this.props.ingredientsCallFailed || this.props.productsCallFailed
+            ? <p>Oh no! Something went wrong on our end. Please check back in later!</p> : ''}
+          {this.props.ingredientIsValid ? ''
+            : <p>Aw snap! It looks like we don&apos;t have anything delicious containing {this.state.inputValue} yet. Maybe try something else?</p>
+          }
         </div>
       </div>
     )
@@ -98,6 +104,8 @@ const mapDispatchToProps = (dispatch: DHDispatch): IngredientFormDispatchProps =
 const mapStateToProps = (state: RootState): IngredientFormStateProps => ({
   ingredientIsValid: state.ingredientReducer.ingredientIsValid,
   selectedIngredient: state.ingredientReducer.selectedIngredient,
+  ingredientsCallFailed: state.ingredientReducer.ingredientsCallFailed,
+  productsCallFailed: state.productReducer.productsCallFailed,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(IngredientForm)
