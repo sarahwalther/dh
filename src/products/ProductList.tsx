@@ -9,11 +9,13 @@ interface ProductListStateProps {
 }
 
 export const ProductList = (props: ProductListStateProps): ReactElement => (
-  <div>
-    {props.products.length > 0
-      ? 'Here are a few delicious options to choose from' : ''
-    }
-    {props.products.map(product => <ProductView key={product.id} product={product}/>)}
+  <div className="container mt-4">
+    <div className=".col-sm-2 .offset-md-2">
+      {props.products.length > 0
+        ? <h3>Here are a few delicious options to choose from</h3> : ''
+      }
+      {props.products.map(product => <ProductView key={product.id} product={product}/>)}
+    </div>
   </div>
 )
 
