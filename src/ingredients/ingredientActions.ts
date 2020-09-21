@@ -67,7 +67,8 @@ export const validateAndSelectIngredient: ActionCreator<DHThunk> = (
   const ingredientFound = getState().ingredientReducer.ingredients.find(
     availableIngredient => {
       const singularLowerCaseIngredient = pluralize.singular(ingredient.toLowerCase())
-      return availableIngredient.name.toLowerCase() === singularLowerCaseIngredient
+      const singularLowerCaseAvailableIngredient = pluralize.singular(availableIngredient.name.toLowerCase())
+      return singularLowerCaseAvailableIngredient === singularLowerCaseIngredient
     })
 
   dispatch(updateIngredientIsValidAction(ingredientFound !== undefined))

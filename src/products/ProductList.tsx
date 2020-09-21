@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react'
 import { Product } from './Products'
 import { ProductView } from './ProductView'
-import { RootState } from '../reducers';
-import { connect } from 'react-redux';
+import { RootState } from '../reducers'
+import { connect } from 'react-redux'
 
 interface ProductListStateProps {
   products: Product[]

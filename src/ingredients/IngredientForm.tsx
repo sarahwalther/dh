@@ -82,6 +82,7 @@ export class IngredientForm extends Component<IngredientFormStateProps & Ingredi
 
   handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
+    this.validate()
     if (this.props.selectedIngredient !== undefined) {
       this.props.fetchProducts(this.props.selectedIngredient)
     }

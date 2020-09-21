@@ -4,7 +4,7 @@ import Header from './Header'
 import IngredientForm from './ingredients/IngredientForm'
 import { Provider } from 'react-redux'
 import store from './store'
-import ProductList from './products/ProductList';
+import ProductList from './products/ProductList'
 
 function App(): ReactElement {
   return (

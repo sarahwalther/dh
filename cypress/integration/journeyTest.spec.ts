@@ -21,6 +21,7 @@ context('Journey Test', () => {
       cy.route('GET', 'https://raw.githubusercontent.com/daily-harvest/opportunities/master/web-1/data/products.json').as('getProducts')
 
       cy.get('form').submit()
+      cy.get('form').submit()
       cy.wait('@getProducts')
     })
 

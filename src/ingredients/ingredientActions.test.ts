@@ -24,13 +24,18 @@ describe('IngredientActions', () => {
   }
 
   const grape = {
-    id: 1,
+    id: 2,
     name: 'Grape',
   }
 
   const tomato = {
-    id: 1,
+    id: 3,
     name: 'Tomato',
+  }
+
+  const organicBlackBeans = {
+    id: 4,
+    name: 'Organic Black Beans',
   }
 
   beforeEach(() => {
@@ -41,7 +46,7 @@ describe('IngredientActions', () => {
     store = setupMockStore(
       {
         ingredientReducer: {
-          ingredients: [avodado, grape],
+          ingredients: [avodado, grape, organicBlackBeans],
           selectedIngredient: undefined,
           ingredientIsValid: true,
           ingredientsCallFailed: false,
@@ -79,6 +84,20 @@ describe('IngredientActions', () => {
     })
 
     describe('when the ingredient does exist', () => {
+      describe('when the ingredient is more than one word', () => {
+        it('should dispatch the UPDATE_INGREDIENT_IS_VALID action with true', () => {
+          const expectedAction: UpdateIngredientIsValidAction = {
+            type: UPDATE_INGREDIENT_IS_VALID,
+            payload: true,
+          }
+
+          store.dispatch(validateAndSelectIngredient('Organic Black Beans'))
+          const actionsCalled = store.getActions()
+
+          expect(actionsCalled[0]).toEqual(expectedAction)
+        })
+      })
+
       describe('when the input is lower case', () => {
         it('should dispatch the UPDATE_INGREDIENT_IS_VALID action with true', () => {
           const expectedAction: UpdateIngredientIsValidAction = {
