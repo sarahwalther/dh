@@ -1,5 +1,12 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### Description
+This application allows users to input their favorite ingredients and see a list of products that contain these ingredients. 
+
+### Required dependencies
+* yarn version 1.22.4
+* node version 14.4.0
+
 ### Running the app
 * From the root of the directory,
     * Run `yarn install`

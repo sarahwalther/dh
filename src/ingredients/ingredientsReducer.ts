@@ -13,8 +13,6 @@ const initialState: IngredientState = {
   ingredientsCallFailed: false,
 }
 
-// TODO: Need to think about resetting
-
 export const ingredientReducer = (
   state = initialState,
   action: IngredientActions,
